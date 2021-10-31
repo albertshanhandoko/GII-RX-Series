@@ -393,8 +393,15 @@ namespace ControllerPage
                 }
                 catch (Exception ex)
                 {
+                    batch_id = Sensor_input_Helper.MySql_Insert_Batch(Sensor_input_Helper.GetLocalIPAddress()
+                                , "0"
+                                , 0
+                                , "0"
+                                , 0
+                                , "0")
+                                ;
                     MessageBox.Show("Error 001 - There is no signal between sensor and controller.");
-                    //Sensor_input_Helper.Update_ErrorCode(Sensor_input_Helper.GetLocalIPAddress(), batch_id_check, "001");
+                    Sensor_input_Helper.Update_ErrorCode(Sensor_input_Helper.GetLocalIPAddress(), batch_id, "001");
                     Console.WriteLine(ex.Message);
                 }
 
@@ -1263,8 +1270,16 @@ namespace ControllerPage
 
             if (bool_check_error)
             {
+                batch_id = Sensor_input_Helper.MySql_Insert_Batch(Sensor_input_Helper.GetLocalIPAddress()
+            , "0"
+            , 0
+            , "0"
+            , 0
+            , "0")
+            ;
+
                 Console.WriteLine("Match Error adalah: " + check_string);
-                //Sensor_input_Helper.Update_ErrorCode(Sensor_input_Helper.GetLocalIPAddress(), batch_id_check, check_string);
+                Sensor_input_Helper.Update_ErrorCode(Sensor_input_Helper.GetLocalIPAddress(), batch_id, check_string);
                 Error_Sensor_Controller enum_ErrorCode = (Error_Sensor_Controller)Enum.Parse(typeof(Error_Sensor_Controller), "error" + check_string);
                 string Error_Message = Sensor_input_Helper.GetDescription(enum_ErrorCode);
                 MessageBox.Show(this, Error_Message, application_name);
